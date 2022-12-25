@@ -25,6 +25,9 @@ public class SnakeBoard extends JPanel {
     // The location of the apple on the board
     private SnakeJoint apple;
 
+    // The current direction of the snake
+    private SnakeDirection direction;
+
     // Constants for the colors of the snake and apple
     public static final Color SNAKE_COLOR = Color.GREEN;
     public static final Color APPLE_COLOR = Color.RED;
@@ -41,6 +44,9 @@ public class SnakeBoard extends JPanel {
         for (int i = 0; i < INITIAL_SNAKE_LENGTH; i++) {
             snake.add(new SnakeJoint(i * JOINT_SIZE, 0));
         }
+
+        // Set the initial direction of the snake to right
+        direction = SnakeDirection.RIGHT;
 
         // Place the apple randomly on the board
         apple = new SnakeJoint((int) (Math.random() * BOARD_WIDTH), (int) (Math.random() * BOARD_HEIGHT));
@@ -62,5 +68,33 @@ public class SnakeBoard extends JPanel {
         // Draw the apple
         g.setColor(APPLE_COLOR);
         g.fillRect(apple.getX(), apple.getY(), JOINT_SIZE, JOINT_SIZE);
+    }
+
+    /**
+     * Updates the position of the snake based on its current direction.
+     */
+    public void updateSnake() {
+        // Get the current position of the snake's head
+        SnakeJoint head = snake.get(0);
+        int x = head.getX();
+        int y = head.getY();
+
+        // Calculate the new position of the snake's head based on the current direction
+        if (direction == SnakeDirection.UP) {
+            y -= JOINT_SIZE;
+        } else if (direction == SnakeDirection.DOWN) {
+            y += JOINT_SIZE;
+        } else if (direction == SnakeDirection.LEFT) {
+            x -= JOINT_SIZE;
+        } else if (direction == SnakeDirection.RIGHT) {
+            x += JOINT_SIZE;
+        }
+
+        // Check if the snake has collided with the walls or its own body
+        if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT || snake.contains(new SnakeJoint(x, y))) {
+            // Game over
+            System.out.println("Game Over");
+            System.exit(0);
+        }
     }
 }

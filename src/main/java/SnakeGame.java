@@ -22,6 +22,9 @@ public class SnakeGame {
         // Start the game loop
         while (true) {
 
+            // Update the snake's position
+            board.updateSnake();
+
             // Repaint the board
             board.repaint();
 
