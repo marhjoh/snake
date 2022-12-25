@@ -19,6 +19,19 @@ public class SnakeGame {
         frame.pack();
         frame.setVisible(true);
 
-    }
+        // Start the game loop
+        while (true) {
 
+            // Repaint the board
+            board.repaint();
+
+            // Sleep for a short time
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }
