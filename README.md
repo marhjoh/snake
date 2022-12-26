@@ -11,4 +11,4 @@ Martin Hegnum Johannessen - marhjoh@stud.ntnu.no
 ## Project status
 In making.
 
-![](C:\Users\marti\OneDrive\Dokumenter\Skole\Programmering 2\snake\src\main\resources\images\snakeGameLogo.png)
+<img alt="&lt;img images=&quot;Logo.png&quot; width=&quot;156,75&quot;/&gt;" height="116,25" src="src\main\resources\images\snakeGameLogo.png" width="156,75"/>
