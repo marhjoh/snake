@@ -18,6 +18,7 @@ public class SnakeGame {
         frame.add(board);
         frame.pack();
         frame.setVisible(true);
+        frame.addKeyListener(board);  // Add the board as a key listener
 
         // Start the game loop
         while (true) {
@@ -34,7 +35,6 @@ public class SnakeGame {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

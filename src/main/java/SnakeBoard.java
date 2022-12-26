@@ -2,12 +2,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JPanel;
 
 /**
  * Class for the Snake game board.
  */
-public class SnakeBoard extends JPanel {
+public class SnakeBoard extends JPanel implements KeyListener {
 
     // Constants for the size of the board, in pixels
     public static final int BOARD_WIDTH = 400;
@@ -96,5 +99,48 @@ public class SnakeBoard extends JPanel {
             System.out.println("Game Over");
             System.exit(0);
         }
+
+        // Update the position of the snake's head
+        snake.add(0, new SnakeJoint(x, y));
+
+        // Remove the last joint of the snake if the snake has not eaten the apple
+        if (!apple.equals(snake.get(0))) {
+            snake.remove(snake.size() - 1);
+        } else {
+            // Place the apple randomly on the board
+            apple = new SnakeJoint((int) (Math.random() * BOARD_WIDTH), (int) (Math.random() * BOARD_HEIGHT));
+        }
     }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //Do nothing
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //Do nothing
+    }
+
+    /**
+     * Handles key press events.
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // Get the key code for the pressed key
+        int keyCode = e.getKeyCode();
+
+        // Change the direction of the snake based on the key press
+        if (keyCode == KeyEvent.VK_UP) {
+            direction = SnakeDirection.UP;
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            direction = SnakeDirection.DOWN;
+        } else if (keyCode == KeyEvent.VK_LEFT) {
+            direction = SnakeDirection.LEFT;
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            direction = SnakeDirection.RIGHT;
+        }
+    }
+
 }
