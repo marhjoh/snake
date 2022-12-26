@@ -110,7 +110,8 @@ public class SnakeBoard extends JPanel implements KeyListener {
         if (checkApple(newHead)) {
             // Generate a new random location for the apple
             apple = new SnakeJoint((int) (Math.random() * BOARD_WIDTH), (int) (Math.random() * BOARD_HEIGHT));
-        } else {
+        }
+        else {
             // Remove the last joint of the snake if the snake has not eaten the apple
             snake.remove(snake.size() - 1);
         }
@@ -154,5 +155,29 @@ public class SnakeBoard extends JPanel implements KeyListener {
         } else if (keyCode == KeyEvent.VK_RIGHT) {
             direction = SnakeDirection.RIGHT;
         }
+    }
+
+    /**
+     * Returns the list of joints in the snake.
+     * @return the list of joints in the snake
+     */
+    public List<SnakeJoint> getSnake() {
+        return snake;
+    }
+
+    /**
+     * Returns the location of the apple on the board.
+     * @return the location of the apple on the board
+     */
+    public SnakeJoint getApple() {
+        return apple;
+    }
+
+    /**
+     * Returns the current direction of the snake.
+     * @return the current direction of the snake
+     */
+    public SnakeDirection getDirection() {
+        return direction;
     }
 }
