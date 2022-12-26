@@ -40,12 +40,14 @@ public class SnakeBoard extends JPanel implements KeyListener {
      */
     public SnakeBoard() {
         // Set the size of the board
+        int x = (BOARD_WIDTH - JOINT_SIZE) / 2;
+        int y = (BOARD_HEIGHT - JOINT_SIZE) / 2;
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
 
         // Initialize the snake with INITIAL_SNAKE_LENGTH joints
         snake = new ArrayList<>();
         for (int i = 0; i < INITIAL_SNAKE_LENGTH; i++) {
-            snake.add(new SnakeJoint(i * JOINT_SIZE, 0));
+            snake.add(new SnakeJoint(x, y));
         }
 
         // Set the initial direction of the snake to right
@@ -101,17 +103,28 @@ public class SnakeBoard extends JPanel implements KeyListener {
         }
 
         // Update the position of the snake's head
-        snake.add(0, new SnakeJoint(x, y));
+        SnakeJoint newHead = new SnakeJoint(x, y);
+        snake.add(0, newHead);
 
-        // Remove the last joint of the snake if the snake has not eaten the apple
-        if (!apple.equals(snake.get(0))) {
-            snake.remove(snake.size() - 1);
-        } else {
-            // Place the apple randomly on the board
+        // Check if the snake has eaten the apple
+        if (checkApple(newHead)) {
+            // Generate a new random location for the apple
             apple = new SnakeJoint((int) (Math.random() * BOARD_WIDTH), (int) (Math.random() * BOARD_HEIGHT));
+        } else {
+            // Remove the last joint of the snake if the snake has not eaten the apple
+            snake.remove(snake.size() - 1);
         }
     }
 
+    /**
+     * Checks if the given SnakeJoint is the same as the apple.
+     *
+     * @param joint the SnakeJoint to check
+     * @return true if the given SnakeJoint is the same as the apple, false otherwise
+     */
+    private boolean checkApple(SnakeJoint joint) {
+        return apple.equals(joint);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -142,5 +155,4 @@ public class SnakeBoard extends JPanel implements KeyListener {
             direction = SnakeDirection.RIGHT;
         }
     }
-
 }
